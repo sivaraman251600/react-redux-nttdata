@@ -1,5 +1,4 @@
-import {createStore} from 'redux'
-import { MilkReducer } from '../redux/milk/milkReducer'
+import { createStore } from "redux";
+import { MilkReducer } from "../redux/milk/milkReducer";
 
-export const  milkStore = createStore (MilkReducer)
-
+export const milkStore = createStore(MilkReducer);

@@ -1,27 +1,34 @@
-import React from 'react'
-import {buyMilk }from '../redux/milk/milkAction'
-import { connect } from 'react-redux'
+import React from "react";
+import { createBuyMilkAction } from "../redux/milk/milkAction";
+import { connect } from "react-redux";
+import { useState } from "react";
 
-function MilkContainer (props) {
-
-    return(
-        <div>
-            <h1>Milk Container - {props.numOfMilk}</h1>
-            <button onClick = {props.buyMilk}>BUY MILK</button>
-        </div>
-    )
+function MilkContainer(props) {
+  const [quantityNumber, setQuantityNumber] = useState(0);
+  return (
+    <div>
+      <h1>Milk Container - {props.availableMilkQuantity}</h1>
+      <input
+        type={"number"}
+        value={quantityNumber}
+        placeholder="0"
+        onChange={(e) => setQuantityNumber(e.target.value)}
+      />
+      <button onClick={() => props.buyMilk(quantityNumber)}>BUY MILK</button>
+    </div>
+  );
 }
 
-const mapToStateProps = state =>{
-    return{
-        numOfMilk : state.numOfMilk
-    }
-}
+const mapStateToProps = (state) => {
+  return {
+    availableMilkQuantity: state.numOfMilk,
+  };
+};
 
-const mapDispatchToProps = dispatch =>{
-    return{
-        buyMilk : ()=>dispatch(buyMilk())
-    }
-}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    buyMilk: (quantity) => dispatch(createBuyMilkAction(quantity)),
+  };
+};
 
-export default connect(mapToStateProps, mapDispatchToProps)(MilkContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(MilkContainer);
